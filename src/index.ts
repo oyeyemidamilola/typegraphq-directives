@@ -13,6 +13,9 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 
 import { Context } from '@interfaces/context';
 
+import { DateDirective, dateDirectiveTransformer, UppercaseDirective, upperDirectiveTransformer } from './directives';
+
+
 
 const buildContext = (contextRequest: express.Request, contextResponse: express.Response): Context => {
 
@@ -24,11 +27,14 @@ const buildContext = (contextRequest: express.Request, contextResponse: express.
 
 
 function createSchemaSync(): GraphQLSchema {
-    return buildSchemaSync({
-        resolvers:[ path.join(__dirname, 'resolvers/**/*.ts')],
+    let schema =  buildSchemaSync({
+        resolvers:[path.join(__dirname, 'resolvers/**/*.ts')],
+        directives: [ UppercaseDirective, DateDirective ],
         emitSchemaFile: true
- 
     })
+    schema = upperDirectiveTransformer(schema, 'uppercase');
+    schema = dateDirectiveTransformer(schema, 'date');
+    return schema
 }
 
 

@@ -1,13 +1,20 @@
-import { Context } from "@interfaces/context";
-import { Ctx, Query, Resolver } from "type-graphql";
+import { Query, Resolver } from "type-graphql";
+
+import { Recipe } from "../types/recipe";
 
 
 
 @Resolver()
 export class RecipeResolver {
 
-    @Query(() => String)
-    testQuery(@Ctx() context: Context): string {
-        return "Successfully queried"
+    @Query(() => Recipe)
+    getRecipe(): Recipe {
+        return {
+            id: "1",
+            name: "Recipe 1",
+            description: "Recipe Description",
+            createdAt: new Date(),
+            ingredients: ["ingredient 1", "ingredient 2"]
+        }
     } 
 }

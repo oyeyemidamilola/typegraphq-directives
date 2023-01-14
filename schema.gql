@@ -3,6 +3,28 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+"""Transforms date fields based on inputed formats"""
+directive @date(
+  """Format style"""
+  format: String = "YYYY/MM/DD HH:mm:ss"
+) on FIELD
+
+"""Provides default value for input field."""
+directive @uppercase on FIELD
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
 type Query {
-  testQuery: String!
+  getRecipe: Recipe!
+}
+
+type Recipe {
+  createdAt: DateTime!
+  description: String!
+  id: String!
+  ingredients: [String!]!
+  name: String!
 }
