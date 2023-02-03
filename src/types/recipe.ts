@@ -17,7 +17,7 @@ export class Recipe {
     @Field(of => [String])
     ingredients!: string[]
 
-    @Directive(`@date`)
+    @Directive(`@date(format: "YYYY/MM/DD")`)
     @Field()
-    createdAt!: Date
+    createdAt!: string
 }

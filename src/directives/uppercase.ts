@@ -7,6 +7,7 @@ export const UppercaseDirective = new GraphQLDirective({
     name: 'uppercase',
     description: 'Provides default value for input field.',
     locations: [DirectiveLocation.FIELD],
+    isRepeatable: true
 });
 
 

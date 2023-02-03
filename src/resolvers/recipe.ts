@@ -13,7 +13,7 @@ export class RecipeResolver {
             id: "1",
             name: "Recipe 1",
             description: "Recipe Description",
-            createdAt: new Date(),
+            createdAt: new Date().toUTCString(),
             ingredients: ["ingredient 1", "ingredient 2"]
         }
     } 

@@ -7,11 +7,12 @@ export const DateDirective = new GraphQLDirective({
     name: 'date',
     description: 'Transforms date fields based on inputed formats',
     locations: [DirectiveLocation.FIELD], 
+    isRepeatable: true,
     args: { 
         format: {
             type: GraphQLString,
             description: 'Format style',
-            defaultValue: "YYYY/MM/DD HH:mm:ss"
+            defaultValue: "YYYY/MM/DD HH:mm:ss",
          },
     }
 });
@@ -26,10 +27,9 @@ export function dateDirectiveTransformer(schema: GraphQLSchema, directiveName: s
               const { format } = dateDirective
               fieldConfig.resolve = async (source, args, context, info) => {
                 const date = await resolve(source, args, context, info)
-                console.log(dateFormat(date, format, true))
-                return date//dateFormat(new Date(date), format, true)
+                let dateObject = new Date(date)
+                return dateFormat(dateObject, format, true)
               }
-              console.log(fieldConfig)
               return fieldConfig
             }
         }

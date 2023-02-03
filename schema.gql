@@ -7,22 +7,17 @@
 directive @date(
   """Format style"""
   format: String = "YYYY/MM/DD HH:mm:ss"
-) on FIELD
+) repeatable on FIELD
 
 """Provides default value for input field."""
-directive @uppercase on FIELD
-
-"""
-The javascript `Date` as string. Type represents date and time as the ISO Date string.
-"""
-scalar DateTime
+directive @uppercase repeatable on FIELD
 
 type Query {
   getRecipe: Recipe!
 }
 
 type Recipe {
-  createdAt: DateTime!
+  createdAt: String!
   description: String!
   id: String!
   ingredients: [String!]!

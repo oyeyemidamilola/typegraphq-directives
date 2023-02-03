@@ -10,21 +10,16 @@ import { GraphQLSchema } from 'graphql';
 import { buildSchemaSync } from 'type-graphql';
 
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-
 import { Context } from '@interfaces/context';
-
 import { DateDirective, dateDirectiveTransformer, UppercaseDirective, upperDirectiveTransformer } from './directives';
 
 
-
 const buildContext = (contextRequest: express.Request, contextResponse: express.Response): Context => {
-
     return {
         request: contextRequest,
         response: contextResponse
     }
 }
-
 
 function createSchemaSync(): GraphQLSchema {
     let schema =  buildSchemaSync({
@@ -56,7 +51,6 @@ async function startServer(){
     app.use('/graphql', cors(), json(), expressMiddleware(server, {
         context: async ({ req, res }) => buildContext(req, res)
     }))
-
 
     await new Promise(resolve => {
         httpServer.listen({ port: 3034 })
